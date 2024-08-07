@@ -8,6 +8,7 @@ const logger = require('./middlewares/logger');
 
 app.use(logger);
 
+app.use(express.static('public')); 
 
 app.get('/', (req, res) => {
     res.send('Hello World');
