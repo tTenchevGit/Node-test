@@ -2,7 +2,6 @@
   "name": "node-journey-main",
   "version": "1.0.0",
   "main": "index.js",
- 
   "scripts": {
     "start": "nodemon server.js"
   },
@@ -11,8 +10,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "express": "^4.19.2",
-    "nodemon": "^3.1.4",
-    "express-handlebars": "^6.0.1"
+    "express-handlebars": "^6.0.1",
+    "nodemon": "^3.1.4"
   }
 }

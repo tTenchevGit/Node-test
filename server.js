@@ -1,25 +1,30 @@
-
-
-
-
 const express = require('express');
 const path = require('path');
 const logger = require('./middlewares/logger');
 const checkMiddleware = require('./middlewares/moddleware');
-const exphbs = require('express-handlebars');
+const { create } = require('express-handlebars');
+// const handlebars = require('handlebars');
+const bodyParser = require('body-parser');
 
 const app = express();
 const portNumber = 5000;
 
+
+const cats = require('./cats');
+const hbs = create({ extname: 'hbs' });
 app.use(logger);
 app.use(express.static('public'));
 
-app.engine('handlebars', exphbs.engine());
-app.set('view engine', 'handlebars');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.engine('hbs', hbs.engine);
+app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res) => {
-    res.render('home', { layout: false });
+    let name = 'John';
+    res.render('home', { name });
 });
 
 app.get('/download', (req, res) => {
@@ -45,9 +50,15 @@ app.get('/public', (req, res) => {
     });
 });
 
+app.get('/cats', (req, res) => {
+    res.render('cats', { cats: cats.getAll() });
+});
+
 app.post('/cats', (req, res) => {
-    res.send('Run fast eeeee');
-    console.log('Meow');
+    console.log(req.body);
+    let catName = req.body.cat;
+    cats.add(catName); 
+    res.redirect('/cats');
 });
 
 app.get('/cats/:id?', checkMiddleware, (req, res) => {
