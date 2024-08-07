@@ -3,10 +3,10 @@ function middleware(req, res, next) {
   console.log(req.params);
 
   if (req.params.id) {
-    next();
+    next(); // Pass control to the next middleware or route handler
+  } else {
+    res.status(403).send("ID Not found"); // Send response if no ID is found
   }
-
-  res.status(403).send("ID Not found");
 }
 
 module.exports = middleware;
