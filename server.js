@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const portNumber = 5000;
 const path = require('path');
+const checkMiddleware = require('./middlewares/moddleware');
+
 
 
 app.get('/', (req, res) => {
@@ -35,10 +37,10 @@ app.get('/view', (req, res) => {
     });
 });
 
-app.get('/cats', (req, res)=>{
-    res.send('Meow');
-    console.log('Meow');
-});
+// app.get('/cats', (req, res)=>{
+//     res.send('Meow');
+//     console.log('Meow');
+// });
 
 app.post('/cats', (req, res)=>{
     res.send('Run fast eeeee');
@@ -46,10 +48,10 @@ app.post('/cats', (req, res)=>{
     res.end();
 });
 
-app.get('/cats/:id(\\d+)', (req, res) => {
+app.get('/cats/:id?', checkMiddleware,(req, res) => {
     console.log(req.params); 
     const postId = req.params.id;
-    res.send(`Post ${postId}`);
+    res.send(`This is the ID ${postId}`);
     console.log(`Post ${postId}`);
   });
   
