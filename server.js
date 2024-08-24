@@ -3,7 +3,7 @@ const path = require('path');
 const logger = require('./middlewares/logger');
 const checkMiddleware = require('./middlewares/moddleware');
 const { create } = require('express-handlebars');
-// const handlebars = require('handlebars');
+
 const bodyParser = require('body-parser');
 
 const app = express();
